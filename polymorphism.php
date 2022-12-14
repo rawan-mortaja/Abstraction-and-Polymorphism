@@ -1,29 +1,44 @@
 <?php
-   interface Machine {
-      public function calcTask();
+abstract class Shape
+{
+   abstract public function getArea();
+}
+
+class Rectangle extends Shape
+{
+   protected $width;
+   protected $height;
+
+   public function __construct($width, $height)
+   {
+      $this->width = $width;
+      $this->height = $height;
    }
-   class Circle implements Machine {
-      private $radius;
-      public function __construct($radius){
-         $this -> radius = $radius;
-      }
-      public function calcTask(){
-         return $this -> radius * $this -> radius * pi();
-      }
+
+   public function getArea()
+   {
+      return $this->width * $this->height;
    }
-   class Rectangle implements Machine {
-      private $width;
-      private $height;
-      public function __construct($width, $height){
-         $this -> width = $width;
-         $this -> height = $height;
-      }
-      public function calcTask(){
-         return $this -> width * $this -> height;
-      }
+}
+
+class Circle extends Shape
+{
+   protected $radius;
+
+   public function __construct($radius)
+   {
+      $this->radius = $radius;
    }
-   $mycirc = new Circle(3);
-   $myrect = new Rectangle(3,4);
-   echo $mycirc->calcTask();
-   echo $myrect->calcTask();
-?>
+
+   public function getArea()
+   {
+      return pi() * $this->radius * $this->radius;
+   }
+}
+
+$rectangle = new Rectangle(10, 5);
+
+$circle = new Circle(10);
+
+$rectangleArea = $rectangle->getArea();
+$circleArea = $circle->getArea();
